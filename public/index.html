@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Record Management System - Teaching Hospital</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="mt-3">Processing request...</div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1><i class="fas fa-hospital-alt me-3"></i>Patient Record Management System</h1>
+                        <p class="subtitle mb-0">Teaching Hospital - Digital Healthcare Management</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <i class="fas fa-clock me-2 text-muted"></i>
+                            <span id="currentTime" class="text-muted"></span>
+                        </div>
+                        <div class="mt-1">
+                            <span class="badge bg-success">
+                                <i class="fas fa-circle me-1"></i>System Online
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="container">
+            <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="patients-tab" data-bs-toggle="tab" data-bs-target="#patients" type="button" role="tab">
+                        <i class="fas fa-users me-2"></i>All Patients
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab">
+                        <i class="fas fa-search me-2"></i>Search Patients
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="add-tab" data-bs-toggle="tab" data-bs-target="#add" type="button" role="tab">
+                        <i class="fas fa-plus me-2"></i>Add Patient
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="container mt-4">
+            <div class="tab-content" id="mainTabContent">
+                
+                <!-- Dashboard Tab -->
+                <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3">
+                            <div class="stat-card">
+                                <span id="totalPatientsCount" class="stat-number">0</span>
+                                <div class="stat-label">Total Patients</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stat-card">
+                                <span id="activePatientsCount" class="stat-number">0</span>
+                                <div class="stat-label">Active Patients</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stat-card">
+                                <span id="criticalPatientsCount" class="stat-number">0</span>
+                                <div class="stat-label">Critical Cases</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stat-card">
+                                <span id="todayVisitsCount" class="stat-number">0</span>
+                                <div class="stat-label">Today's Visits</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Patient Status Distribution</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="statusChart">
+                                        <div class="text-center text-muted">
+                                            <i class="fas fa-chart-bar fa-3x mb-3"></i>
+                                            <p>Loading statistics...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Top Cities</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="cityChart">
+                                        <div class="text-center text-muted">
+                                            <i class="fas fa-city fa-3x mb-3"></i>
+                                            <p>Loading city data...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Recent Patients</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="recentPatients">
+                                <div class="text-center text-muted">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <p class="mt-2">Loading recent patients...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Patients Tab -->
+                <div class="tab-pane fade" id="patients" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3><i class="fas fa-users me-2"></i>All Patients</h3>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-secondary" onclick="refreshPatients()">
+                                <i class="fas fa-sync-alt me-2"></i>Refresh
+                            </button>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-sort me-2"></i>Sort By
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" onclick="sortPatients('createdAt', 'desc')">Newest First</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="sortPatients('createdAt', 'asc')">Oldest First</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="sortPatients('FirstName', 'asc')">Name A-Z</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="sortPatients('FirstName', 'desc')">Name Z-A</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="sortPatients('LastVisitDate', 'desc')">Recent Visit</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patients Grid -->
+                    <div id="patientsContainer" class="row">
+                        <div class="col-12">
+                            <div class="text-center text-muted py-5">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-3">Loading patients...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Patient pagination" class="mt-4">
+                        <ul id="paginationControls" class="pagination justify-content-center">
+                            <!-- Pagination will be dynamically generated -->
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Search Patients Tab -->
+                <div class="tab-pane fade" id="search" role="tabpanel">
+                    <h3><i class="fas fa-search me-2"></i>Search Patients</h3>
+                    
+                    <!-- Search Form -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <div class="search-container">
+                                        <input type="text" id="searchInput" class="search-input" placeholder="Search by name, email, city, doctor, or guardian...">
+                                        <i class="fas fa-search search-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <select id="searchField" class="form-select">
+                                        <option value="all">All Fields</option>
+                                        <option value="FirstName">First Name</option>
+                                        <option value="LastName">Last Name</option>
+                                        <option value="Email">Email</option>
+                                        <option value="NearCity">City</option>
+                                        <option value="Doctor">Doctor</option>
+                                        <option value="Guardian">Guardian</option>
+                                        <option value="PID">Patient ID</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Search Buttons -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-muted mb-3">Quick Searches:</h6>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button class="btn btn-outline-primary btn-sm" onclick="quickSearch('Status', 'Critical')">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>Critical Patients
+                                        </button>
+                                        <button class="btn btn-outline-success btn-sm" onclick="quickSearch('Status', 'Alive')">
+                                            <i class="fas fa-heartbeat me-1"></i>Active Patients
+                                        </button>
+                                        <button class="btn btn-outline-info btn-sm" onclick="quickSearch('NearCity', 'Kandy')">
+                                            <i class="fas fa-map-marker-alt me-1"></i>Kandy Patients
+                                        </button>
+                                        <button class="btn btn-outline-warning btn-sm" onclick="searchTodayVisits()">
+                                            <i class="fas fa-calendar-day me-1"></i>Today's Visits
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Search Results -->
+                    <div id="searchResults">
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <h3>Start Searching</h3>
+                            <p>Enter a search term above to find patients</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Patient Tab -->
+                <div class="tab-pane fade" id="add" role="tabpanel">
+                    <h3><i class="fas fa-plus me-2"></i>Add New Patient</h3>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Patient Information Form</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="addPatientForm">
+                                <div class="row">
+                                    <!-- Basic Information -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstName" class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" id="firstName" name="FirstName" required>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" id="lastName" name="LastName" required>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" id="email" name="Email" required>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nearCity" class="form-label">Nearest City *</label>
+                                        <input type="text" class="form-control" id="nearCity" name="NearCity" required>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="doctor" class="form-label">Assigned Doctor *</label>
+                                        <input type="text" class="form-control" id="doctor" name="Doctor" required placeholder="Dr. John Smith">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="guardian" class="form-label">Guardian Name *</label>
+                                        <input type="text" class="form-control" id="guardian" name="Guardian" required>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Medical Information -->
+                                <hr class="my-4">
+                                <h5 class="mb-3">Medical Information</h5>
+
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="status" class="form-label">Patient Status *</label>
+                                        <select class="form-select" id="status" name="Status" required>
+                                            <option value="">Select Status</option>
+                                            <option value="Alive">Alive</option>
+                                            <option value="Critical">Critical</option>
+                                            <option value="Stable">Stable</option>
+                                            <option value="Recovering">Recovering</option>
+                                            <option value="Deceased">Deceased</option>
+                                        </select>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="col-md-8 mb-3">
+                                        <label for="lastVisitDate" class="form-label">Last Visit Date *</label>
+                                        <input type="date" class="form-control" id="lastVisitDate" name="LastVisitDate" required>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="medicalConditions" class="form-label">Medical Conditions</label>
+                                    <input type="text" class="form-control" id="medicalConditions" name="MedicalConditions" 
+                                           placeholder="Enter conditions separated by commas (e.g., Hypertension, Diabetes)">
+                                    <div class="form-text">Separate multiple conditions with commas</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="medications" class="form-label">Current Medications</label>
+                                    <input type="text" class="form-control" id="medications" name="Medications" 
+                                           placeholder="Enter medications separated by commas (e.g., Losartan, Furosemide)">
+                                    <div class="form-text">Separate multiple medications with commas</div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="allergies" class="form-label">Known Allergies</label>
+                                    <input type="text" class="form-control" id="allergies" name="Allergies" 
+                                           placeholder="Enter allergies separated by commas (e.g., Penicillin, Nuts)">
+                                    <div class="form-text">Separate multiple allergies with commas</div>
+                                </div>
+
+                                <!-- Form Actions -->
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>Add Patient
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                        <i class="fas fa-undo me-2"></i>Reset Form
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Details Modal -->
+    <div class="modal fade" id="patientModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="patientModalTitle">Patient Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="patientModalBody">
+                    <!-- Patient details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" id="editPatientBtn">
+                        <i class="fas fa-edit me-2"></i>Edit Patient
+                    </button>
+                    <button type="button" class="btn btn-danger" id="deletePatientBtn">
+                        <i class="fas fa-trash me-2"></i>Delete Patient
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Patient Modal -->
+    <div class="modal fade" id="editPatientModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Patient</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPatientForm">
+                        <!-- Form fields will be dynamically populated -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveEditBtn">
+                        <i class="fas fa-save me-2"></i>Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Alert Container -->
+    <div id="alertContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+        <!-- Alerts will be dynamically added here -->
+    </div>
+
+    <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>
